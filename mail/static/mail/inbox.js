@@ -31,6 +31,7 @@ function load_mailbox(mailbox) {
 }
 
 function send_mail(){
+  event.preventDefault()
   fetch('/emails', {
     method: 'POST',
     body: JSON.stringify({
@@ -44,4 +45,5 @@ function send_mail(){
       // Print result
       console.log(result);
   });
+  load_mailbox('sent');
 }
