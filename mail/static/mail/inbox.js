@@ -28,7 +28,41 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+
+  // Load the emails
+  if (mailbox === 'inbox'){
+    load_inbox()
+  }
 }
+
+
+function load_inbox(){
+  fetch('/emails/inbox')
+  .then(response => response.json())
+  .then(emails => {
+      // Print emails
+      console.log(emails);
+      // Show the emails
+      const list = document.querySelector("#emails-list")
+
+      const contentDiv = document.createElement('div');
+      const checkbox = document.createElement('input')
+      checkbox.className = "form-check-input me-1"
+      checkbox.type = "checkbox"
+
+      emails.forEach(email => {
+        const element = document.createElement('li')
+        element.className = "list-group-item"
+        contentDiv.innerHTML = `<span>${email.sender}</span><span>${email.subject}</span><span>${email.timestamp}</span>`
+
+        element.append(checkbox)
+        element.append(contentDiv)
+
+        list.append(element)
+      });
+      });
+  }
+
 
 function send_mail(){
   event.preventDefault()
