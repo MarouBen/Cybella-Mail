@@ -6,9 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').addEventListener('submit', send_mail);
   
-
-  
-  
   // By default, load the inbox
   load_mailbox('inbox');
 });
@@ -42,9 +39,12 @@ function load_mailbox(mailbox) {
   if (mailbox === 'inbox'){
     load_inbox(list)
   }
+  if (mailbox === 'archive'){
+    load_archive(list)
+  }
 }
 
-
+// load inbox emails
 function load_inbox(list){
   fetch('/emails/inbox')
   .then(response => response.json())
@@ -53,49 +53,53 @@ function load_inbox(list){
       console.log(emails);
       
       // Show the emails
-      
-      emails.forEach(email => {
-        const element = document.createElement('li');
-        element.className = "list-group-item email";
-        if (email.read === true){
-          element.classList.add("read")
-        }
-        
-        const checkbox = document.createElement('input');
-        checkbox.className = "form-check-input";
-        checkbox.type = "checkbox";
-
-        const contentDiv = document.createElement('div');
-        contentDiv.className = "content d-flex justify-content-between ps-3";
-        contentDiv.innerHTML = `<span class="me-2">${email.sender}</span><span class="me-2">${email.subject}</span><span>${email.timestamp}</span>`
-
-        contentDiv.append(checkbox)
-        element.append(contentDiv)
-        list.append(element)
-        // add event listener to the email
-        element.addEventListener('click', () => view_email(email.id));
-      });
+      show_emails(emails, list);
       });
   }
 
+
+// load archive emails
+function load_archive(list){
+  fetch('/emails/archive')
+  .then(response => response.json())
+  .then(emails => {
+      // Print emails
+      console.log(emails);
+
+      // show the emails
+      show_emails(emails, list)
+      });
+  }
+
+
+// function to view email
 function view_email(id){
   document.querySelector('#email-view').style.display = 'block';
   document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  const email_view = document.querySelector('#email-view');
 
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
       // Print email
-      console.log(email)
-      // archive button
-      document.querySelector('#email-view').innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id})">Archive</button>`;
+      console.log(email);
+
+      // archive button and unarchive button
+      if (email.archived === false){
+        email_view.innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id},'archive')">Archive</button>`;
+      }
+      else if (email.archived === true){
+        email_view.innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id},'unarchive')">Unarchive</button>`;
+      }
+
       // Show the email data
-      document.querySelector('#email-view').innerHTML += `<h3>${email.subject}</h3>`;
-      document.querySelector('#email-view').innerHTML += `<h5>From: ${email.sender}</h5>`;
-      document.querySelector('#email-view').innerHTML += `<h5>To: ${email.recipients}</h5>`;
-      document.querySelector('#email-view').innerHTML += `<h5>Timestamp: ${email.timestamp}</h5>`;
-      document.querySelector('#email-view').innerHTML += `<h5>Subject: ${email.subject}</h5>`;
-      document.querySelector('#email-view').innerHTML += `<h5>Body: ${email.body}</h5>`;
+      email_view.innerHTML += `<h3>${email.subject}</h3>`;
+      email_view.innerHTML += `<h5>From: ${email.sender}</h5>`;
+      email_view.innerHTML += `<h5>To: ${email.recipients}</h5>`;
+      email_view.innerHTML += `<h5>Timestamp: ${email.timestamp}</h5>`;
+      email_view.innerHTML += `<h5>Subject: ${email.subject}</h5>`;
+      email_view.innerHTML += `<h5>Body: ${email.body}</h5>`;
       // mark email as read
       fetch(`/emails/${id}`, {
         method: 'PUT',
@@ -108,18 +112,55 @@ function view_email(id){
 
 
 // function to archive email
-function archive_email(id){
-  fetch(`/emails/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-        archived: true
+function archive_email(id,action){
+  if (action === "archive"){
+    fetch(`/emails/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived: true
+      })
     })
-  })
+  }
+  else if (action === "unarchive"){
+    fetch(`/emails/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived: false
+      })
+    })
+  }
   load_mailbox('inbox');
 }
 
 
+// function to show emails
+function show_emails(emails, list){
+  emails.forEach(email => {
+    const element = document.createElement('li');
+    element.className = "list-group-item email";
+    if (email.read === true){
+      element.classList.add("read")
+    }
+    
+    const checkbox = document.createElement('input');
+    checkbox.className = "form-check-input";
+    checkbox.type = "checkbox";
 
+    const contentDiv = document.createElement('div');
+    contentDiv.className = "content d-flex justify-content-between ps-3";
+    contentDiv.innerHTML = `<span class="me-2">${email.sender}</span><span class="me-2">${email.subject}</span><span>${email.timestamp}</span>`
+
+    contentDiv.append(checkbox)
+    element.append(contentDiv)
+    list.append(element)
+    // add event listener to the email
+    element.addEventListener('click', () => view_email(email.id));
+  });
+}
+
+
+
+// function to send email
 function send_mail(){
   event.preventDefault()
   fetch('/emails', {
