@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').addEventListener('submit', send_mail);
+  
 
   
   
@@ -80,13 +81,16 @@ function load_inbox(list){
 function view_email(id){
   document.querySelector('#email-view').style.display = 'block';
   document.querySelector('#emails-view').style.display = 'none';
+
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
       // Print email
       console.log(email)
-      // Show the email
-      document.querySelector('#email-view').innerHTML = `<h3>${email.subject}</h3>`;
+      // archive button
+      document.querySelector('#email-view').innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id})">Archive</button>`;
+      // Show the email data
+      document.querySelector('#email-view').innerHTML += `<h3>${email.subject}</h3>`;
       document.querySelector('#email-view').innerHTML += `<h5>From: ${email.sender}</h5>`;
       document.querySelector('#email-view').innerHTML += `<h5>To: ${email.recipients}</h5>`;
       document.querySelector('#email-view').innerHTML += `<h5>Timestamp: ${email.timestamp}</h5>`;
@@ -100,6 +104,18 @@ function view_email(id){
         })
       })
   });
+}
+
+
+// function to archive email
+function archive_email(id){
+  fetch(`/emails/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+        archived: true
+    })
+  })
+  load_mailbox('inbox');
 }
 
 
