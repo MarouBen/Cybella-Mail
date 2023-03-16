@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').addEventListener('submit', send_mail);
-
+  
   // By default, load the inbox
   load_mailbox('inbox');
 });
@@ -29,35 +29,44 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
+  // Container for the emails
+  const list = document.createElement('ul')
+  list.className = "list-group emails-list"
+  document.querySelector('#emails-view').append(list)
+
   // Load the emails
   if (mailbox === 'inbox'){
-    load_inbox()
+    load_inbox(list)
   }
 }
 
 
-function load_inbox(){
+function load_inbox(list){
   fetch('/emails/inbox')
   .then(response => response.json())
   .then(emails => {
       // Print emails
       console.log(emails);
+      
       // Show the emails
-      const list = document.querySelector("#emails-list")
-
-      const contentDiv = document.createElement('div');
-      const checkbox = document.createElement('input')
-      checkbox.className = "form-check-input me-1"
-      checkbox.type = "checkbox"
-
+      
       emails.forEach(email => {
-        const element = document.createElement('li')
-        element.className = "list-group-item"
-        contentDiv.innerHTML = `<span>${email.sender}</span><span>${email.subject}</span><span>${email.timestamp}</span>`
+        const element = document.createElement('li');
+        element.className = "list-group-item";
+        if (email.read){
+          element.classList.add("read")
+        }
+        
+        const checkbox = document.createElement('input');
+        checkbox.className = "form-check-input";
+        checkbox.type = "checkbox";
 
-        element.append(checkbox)
+        const contentDiv = document.createElement('div');
+        contentDiv.className = "content d-flex justify-content-between ps-3";
+        contentDiv.innerHTML = `<span class="me-2">${email.sender}</span><span class="me-2">${email.subject}</span><span>${email.timestamp}</span>`
+
+        contentDiv.append(checkbox)
         element.append(contentDiv)
-
         list.append(element)
       });
       });
