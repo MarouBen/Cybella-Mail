@@ -42,6 +42,9 @@ function load_mailbox(mailbox) {
   if (mailbox === 'archive'){
     load_archive(list)
   }
+  if (mailbox === 'sent'){
+    load_sent(list)
+  }
 }
 
 // load inbox emails
@@ -61,6 +64,21 @@ function load_inbox(list){
 // load archive emails
 function load_archive(list){
   fetch('/emails/archive')
+  .then(response => response.json())
+  .then(emails => {
+      // Print emails
+      console.log(emails);
+
+      // show the emails
+      show_emails(emails, list)
+      });
+  }
+
+
+
+//load sent emails
+function load_sent(list){
+  fetch('/emails/sent')
   .then(response => response.json())
   .then(emails => {
       // Print emails
@@ -107,6 +125,8 @@ function view_email(id){
             read: true
         })
       })
+      // reply button
+      email_view.innerHTML += `<button class="btn btn-sm btn-outline-primary" type="button" onclick="reply_email(${email.id})">Reply</button>`;
   });
 }
 
@@ -133,6 +153,41 @@ function archive_email(id,action){
 }
 
 
+// function to reply email
+function reply_email(id){
+  compose_email();
+  fetch(`/emails/${id}`)
+  .then(response => response.json())
+  .then(email => {
+      // Print email
+      console.log(email);
+      // Show the email data
+      document.querySelector('#compose-recipients').value = email.sender;
+      document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
+      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+  });
+}
+
+// function to send email
+function send_mail(){
+  event.preventDefault()
+  fetch('/emails', {
+    method: 'POST',
+    body: JSON.stringify({
+        recipients: document.querySelector('#compose-recipients').value,
+        subject: document.querySelector('#compose-subject').value,
+        body: document.querySelector('#compose-body').value
+    })
+  })
+  .then(response => response.json())
+  .then(result => {
+      // Print result
+      console.log(result);
+  });
+  load_mailbox('sent');
+}
+
+
 // function to show emails
 function show_emails(emails, list){
   emails.forEach(email => {
@@ -156,25 +211,4 @@ function show_emails(emails, list){
     // add event listener to the email
     element.addEventListener('click', () => view_email(email.id));
   });
-}
-
-
-
-// function to send email
-function send_mail(){
-  event.preventDefault()
-  fetch('/emails', {
-    method: 'POST',
-    body: JSON.stringify({
-        recipients: document.querySelector('#compose-recipients').value,
-        subject: document.querySelector('#compose-subject').value,
-        body: document.querySelector('#compose-body').value
-    })
-  })
-  .then(response => response.json())
-  .then(result => {
-      // Print result
-      console.log(result);
-  });
-  load_mailbox('sent');
 }
