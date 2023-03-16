@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
   document.querySelector('#compose-form').addEventListener('submit', send_mail);
+
+  
   
   // By default, load the inbox
   load_mailbox('inbox');
@@ -25,6 +27,7 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
@@ -52,8 +55,8 @@ function load_inbox(list){
       
       emails.forEach(email => {
         const element = document.createElement('li');
-        element.className = "list-group-item";
-        if (email.read){
+        element.className = "list-group-item email";
+        if (email.read === true){
           element.classList.add("read")
         }
         
@@ -68,9 +71,38 @@ function load_inbox(list){
         contentDiv.append(checkbox)
         element.append(contentDiv)
         list.append(element)
+        // add event listener to the email
+        element.addEventListener('click', () => view_email(email.id));
       });
       });
   }
+
+function view_email(id){
+  document.querySelector('#email-view').style.display = 'block';
+  document.querySelector('#emails-view').style.display = 'none';
+  fetch(`/emails/${id}`)
+  .then(response => response.json())
+  .then(email => {
+      // Print email
+      console.log(email)
+      // Show the email
+      document.querySelector('#email-view').innerHTML = `<h3>${email.subject}</h3>`;
+      document.querySelector('#email-view').innerHTML += `<h5>From: ${email.sender}</h5>`;
+      document.querySelector('#email-view').innerHTML += `<h5>To: ${email.recipients}</h5>`;
+      document.querySelector('#email-view').innerHTML += `<h5>Timestamp: ${email.timestamp}</h5>`;
+      document.querySelector('#email-view').innerHTML += `<h5>Subject: ${email.subject}</h5>`;
+      document.querySelector('#email-view').innerHTML += `<h5>Body: ${email.body}</h5>`;
+      // mark email as read
+      fetch(`/emails/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            read: true
+        })
+      })
+  });
+}
+
+
 
 
 function send_mail(){
