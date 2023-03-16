@@ -104,7 +104,6 @@ function view_email(id){
 
 
 
-
 function send_mail(){
   event.preventDefault()
   fetch('/emails', {
