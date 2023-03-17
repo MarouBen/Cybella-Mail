@@ -2,16 +2,29 @@
 {% load static %}
 
 {% block body %}
-    <div class="flex">
-        <div class="sidebar fixed top-0 bottom-0 lg:left-0 lg:h-screen p-2 w-[300px] bg-gray-900">
+    <div class="flex w-screen h-screen">
+
+        <div class="sidebar  top-0 bottom-0 lg:left-0 lg:h-screen p-2 w-[300px] bg-gray-900">
+            <div><h1 class="text-white">Mailify</h1></div>
         </div>
 
-        <div>
-            <h1>Mail</h1>
+        <div id="content" class="border-solid border-2 w-screen h-full p-6 ">
+            <div id="Title" class="m-2 bg-red-600">
+                <h1>Title of section</h1>
+            </div>
+            <div id="content" class="m-2 bg-blue-600 h-fit">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
+                </ul>
         </div>
+
     </div>
 
-        {% comment %} <div class="flex-1">
+        {% comment %} <div>
             <h2 class="">{{ request.user.email }}</h2>
             <button class="" id="inbox">Inbox</button>
             <button class="" id="compose">Compose</button>
