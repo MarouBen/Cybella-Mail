@@ -23,27 +23,25 @@ function compose_email() {
 
 function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
-  document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#email-view').style.display = 'none';
-
+  document.querySelector('#emails-section').style.display = 'block';
+  document.querySelector('#Title').style.display = 'block';
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#title-change').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
   // Container for the emails
-  const list = document.createElement('ul')
-  list.className = "list-group emails-list"
-  document.querySelector('#emails-view').append(list)
+  const tableBody = document.querySelector('#emails-view');
 
   // Load the emails
   if (mailbox === 'inbox'){
-    load_inbox(list)
+    load_inbox(tableBody)
   }
   if (mailbox === 'archive'){
-    load_archive(list)
+    load_archive(tableBody)
   }
   if (mailbox === 'sent'){
-    load_sent(list)
+    load_sent(tableBody)
   }
 }
 
@@ -92,32 +90,46 @@ function load_sent(list){
 
 // function to view email
 function view_email(id){
-  document.querySelector('#email-view').style.display = 'block';
-  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#emails-section').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#Title').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'block';
+  
   const email_view = document.querySelector('#email-view');
-
+  
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
       // Print email
       console.log(email);
-
+      btn = document.querySelector("#archive_Icon");
+      console.log(btn);
+      btn.addEventListener('click', () => {
+        console.log("archive button clicked");
+      });
       // archive button and unarchive button
-      if (email.archived === false){
-        email_view.innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id},'archive')">Archive</button>`;
+      if (email.archived === true){
+        document.querySelector("#archive").classList.toggle("text-rose-500");
+        
       }
-      else if (email.archived === true){
-        email_view.innerHTML = `<button class="btn btn-sm btn-outline-primary" type="button" onclick="archive_email(${email.id},'unarchive')">Unarchive</button>`;
-      }
+      // add event listener to archive button
+      
+      // btn.addEventListener('click', () => {
+      //   console.log("archive button clicked");
+      //   if (email.archived === false){
+      //     archive_email(email.id, "archive");
+      //   }
+      //   else if (email.archived === true){
+      //     archive_email(email.id, "unarchive");
+      //   }
+      // });
+      
 
       // Show the email data
-      email_view.innerHTML += `<h3>${email.subject}</h3>`;
-      email_view.innerHTML += `<h5>From: ${email.sender}</h5>`;
-      email_view.innerHTML += `<h5>To: ${email.recipients}</h5>`;
-      email_view.innerHTML += `<h5>Timestamp: ${email.timestamp}</h5>`;
-      email_view.innerHTML += `<h5>Subject: ${email.subject}</h5>`;
-      email_view.innerHTML += `<h5>Body: ${email.body}</h5>`;
+      document.querySelector('#email-subject').innerHTML = email.subject;
+      document.querySelector('#email-sender').innerHTML = email.sender;
+      document.querySelector('#time').innerHTML = email.timestamp;
+      document.querySelector('#email-body').innerHTML = email.body;
       // mark email as read
       fetch(`/emails/${id}`, {
         method: 'PUT',
@@ -125,6 +137,7 @@ function view_email(id){
             read: true
         })
       })
+      
       // reply button
       email_view.innerHTML += `<button class="btn btn-sm btn-outline-primary" type="button" onclick="reply_email(${email.id})">Reply</button>`;
   });
@@ -188,26 +201,47 @@ function send_mail(){
 }
 
 
-// function to show emails
-function show_emails(emails, list){
+// function to show emails in a table format
+function show_emails(emails, tableBody){
+  // clear the table
+  tableBody.innerHTML = '';
+
   emails.forEach(email => {
-    const element = document.createElement('li');
-    element.className = "list-group-item email";
-    if (email.read === true){
-      element.classList.add("read")
-    }
-    
+    // create a row for each email
+    const element = document.createElement('tr');
+    element.className = "border-b hover:bg-gray-50 cursor-pointer "; 
+
+    // add a checkbox
     const checkbox = document.createElement('input');
-    checkbox.className = "form-check-input";
+    checkbox.className = "w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600";
     checkbox.type = "checkbox";
 
-    const contentDiv = document.createElement('div');
-    contentDiv.className = "content d-flex justify-content-between ps-3";
-    contentDiv.innerHTML = `<span class="me-2">${email.sender}</span><span class="me-2">${email.subject}</span><span>${email.timestamp}</span>`
+    const checkkboxtd = document.createElement('td');
+    checkkboxtd.className = "p-4 w-1 leading-3";
+    checkkboxtd.append(checkbox);
+    element.append(checkkboxtd);
+    
 
-    contentDiv.append(checkbox)
-    element.append(contentDiv)
-    list.append(element)
+    // data for the row
+    const sender = document.createElement('td');
+    sender.className = "p-2";
+    sender.innerHTML = email.sender;
+
+    const subject = document.createElement('td');
+    subject.className = "p-2";
+    subject.innerHTML = email.subject;
+
+    const timestamp = document.createElement('td');
+    timestamp.className = "p-2 text-right";
+    timestamp.innerHTML = email.timestamp;
+
+    // append data to the row
+    element.append(sender);
+    element.append(subject);
+    element.append(timestamp);
+
+    // append row to the table
+    tableBody.append(element);
     // add event listener to the email
     element.addEventListener('click', () => view_email(email.id));
   });

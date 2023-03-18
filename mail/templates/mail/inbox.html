@@ -38,16 +38,16 @@
             <!-- menu buttons -->
             <div class="flex flex-col justify-between flex-grow">
                 <div class="">
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
+                    <button id="compose" class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-pen-to-square mr-2"></i>Compose
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
+                    <button id="inbox" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-inbox mr-2"></i>Inbox
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
+                    <button id="sent" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-paper-plane mr-2"></i>Sent
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
+                    <button id="archived" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-box-archive mr-2"></i>Archive
                     </button>
                     <hr class="my-5 text-gray-500 opacity-20">
@@ -65,15 +65,21 @@
 
         <!-- Main content -->
         <div id="content" class=" w-screen h-full p-6 lg:ml-[300px]">
-            <div id="Title" class="flex flex-row ">
+
+            <!-- Title of section-->
+            <div id="Title" class="flex flex-row mb-5 ">
                 <span class="menu inline-block text-2xl p-3 mx-4 mb-2 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
-                <h1 class="text-5xl text-gray-700 font-semibold">Inbox</h1>
+                <h1 id="title-change" class="text-5xl text-gray-700 font-semibold">Inbox</h1>
             </div>
-            <hr class="my-5 text-gray-500 opacity-50">
-            <div class="bg-white">
+           
+            <!-- Title of section-->
+
+            <!-- List Emails section-->
+            <div id="emails-section" class="bg-white">
+                <hr class="my-5 text-gray-500 opacity-50">
                 <div class="overflow-x-auto border-x border-t">
-                   <table class="table-auto w-full">
-                    <tbody id="Emails">
+                <table  class="table-auto w-full ">
+                    <tbody id="emails-view">
                         <tr class="border-b hover:bg-gray-50">
                             <td class="p-4 w-1 leading-3">
                                 <input type="checkbox" class="w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600">
@@ -83,29 +89,73 @@
                             <td class="text-right p-2">Administrator</td>
                         </tr>
                     </tbody>
-                   </table>
+                </table>
                 </div>
             </div>
+            <!-- List Emails section-->
+            <!-- Email section-->
+            
+
+            <div id="email-view" class="">
+                <div id="email-nav">
+                    <div class="flex flex-row justify-between">
+                        
+                        <div class="flex flex-row">
+    
+                            <button id="inbox" onclick="load_mailbox('inbox')" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-chevron-left"></i> 
+                            </button>
+                            <button id="archive_Icon" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-box-archive "></i>
+                            </button>
+                            <button id="spam" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </button>
+                            <button id="delete" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <button id="forward" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="flex flex-row">
+                            <button id="reply" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-reply"></i>
+                            </button>
+                            <button id="option" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-5 text-gray-500 opacity-50">
+                <div id="email-content" class="">
+                    <div class="flex flex-row justify-between ">
+                        <div class="flex flex-col">
+                            <span id="email-subject" class="text-4xl text-gray-900 font-semibold my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                            <span class="text-gray-500">From: <span id="email-sender" class="text-gray-700">Prof. Lucie Waters</span></span>
+                            <span class="text-gray-500">To: <span class="text-gray-700">{{ request.user.email }}</span></span>
+                        </div>
+                        <div class="flex flex-col mt-14">
+                            <span class="text-gray-500">On: <span id="time" class="text-gray-700">2021-05-05</span></span>
+                        </div>
+                    </div>
+                    <div class="text-gray-700 my-5">
+                        <p id="email-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam aliquam, nisl nisl aliquet nunc, eget aliquam nisl nisl sit amet nisl. Nulla fa</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Email section-->
+
         </div>
         <!-- Main content -->
-
     </div>
 
-        {% comment %} <div>
-            <h2 class="">{{ request.user.email }}</h2>
-            <button class="" id="inbox">Inbox</button>
-            <button class="" id="compose">Compose</button>
-            <button class="" id="sent">Sent</button>
-            <button class="" id="archived">Archived</button>
-            <a class="" href="{% url 'logout' %}">Log Out</a>
-            <hr>
 
-            <div id="emails-view">
-            </div>
-            <div id="email-view">
-                <button id="archive">Archive</button>
-            </div>
 
+
+
+        <div>
             <div id="compose-view">
                 <h3>New Email</h3>
                 <form id="compose-form">
@@ -122,7 +172,7 @@
                     <input type="submit" class="btn btn-primary mt-2"/>
                 </form>
             </div>
-        <div> {% endcomment %}
+        <div> 
 
     </div>
 {% endblock %}
