@@ -7,7 +7,7 @@
         <!-- Sidebar -->
         <div class="sidebar fixed top-0 bottom-0 hidden flex-col p-2 pb-0 w-[300px] bg-gray-900 overflow-auto lg:flex ">
             <div id="logo" class="flex flex-row justify-between">
-                <div class="flex text-center my-5 pl-4">
+                <div class="flex text-center my-3 pl-4">
                     <img src="{% static 'mail/M_logo.png' %}" alt="logo" class="w-14 h-10 mt-2">
                     <h1 class="text-white font-bold text-3xl pl-4 pt-3">Mailify</h1>
                 </div>
@@ -66,17 +66,33 @@
 
         <!-- Main content -->
         <div id="content" class=" w-screen h-full p-6 lg:ml-[300px]">
-            <div id="Title" class="m-2 bg-red-600">
-                <h1>Title of section</h1>
+            <div class="bg-white">
+                <div class="overflow-x-auto border-x border-t">
+                   <table class="table-auto w-full">
+                    <tbody id="Emails">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-4 w-1">
+                                <div class="flex items-center">
+                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                            <td class="p-2">Prof. Lucie Waters </td>
+                            <td class="p-2">basic@example.com </td>
+                            <td class="text-right p-2">Administrator</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-4">
+                                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600">
+                            </td>
+                            <td class="p-2">Prof. Lucie Waters </td>
+                            <td class="p-2">basic@example.com </td>
+                            <td class="text-right p-2">Administrator</td>
+                        </tr>
+                    </tbody>
+                   </table>
+                </div>
             </div>
-            <div id="content" class="m-2 bg-blue-600 h-fit">
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                </ul>
         </div>
         <!-- Main content -->
 
