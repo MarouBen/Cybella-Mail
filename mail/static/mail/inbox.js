@@ -94,7 +94,6 @@ function view_email(id){
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#Title').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
-  const email_view = document.querySelector('#email-view');
   
   fetch(`/emails/${id}`)
   .then(response => response.json())
@@ -107,6 +106,14 @@ function view_email(id){
       document.querySelector('#email-sender').innerHTML = email.sender;
       document.querySelector('#time').innerHTML = email.timestamp;
       document.querySelector('#email-body').innerHTML = email.body;
+      
+      // archive button and unarchive button
+      if (email.archived === true){
+        document.querySelector("#archive_Icon").classList.add("text-rose-500");
+      } else {
+        document.querySelector("#archive_Icon").classList.remove("text-rose-500");
+      }
+
       // mark email as read
       fetch(`/emails/${id}`, {
         method: 'PUT',
@@ -114,14 +121,6 @@ function view_email(id){
             read: true
         })
       })
-      
-      // reply button
-      email_view.innerHTML += `<button class="btn btn-sm btn-outline-primary" type="button" onclick="reply_email(${email.id})">Reply</button>`;
-       
-      // archive button and unarchive button
-       if (email.archived === true){
-        document.querySelector("#archive_Icon").classList.toggle("text-rose-500");
-       }
       
        // add event listener to archive button
       document.querySelector("#archive_Icon").addEventListener('click', () => {
