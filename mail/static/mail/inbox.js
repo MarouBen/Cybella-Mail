@@ -94,7 +94,6 @@ function view_email(id){
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#Title').style.display = 'none';
   document.querySelector('#email-view').style.display = 'block';
-  
   const email_view = document.querySelector('#email-view');
   
   fetch(`/emails/${id}`)
@@ -102,28 +101,6 @@ function view_email(id){
   .then(email => {
       // Print email
       console.log(email);
-      btn = document.querySelector("#archive_Icon");
-      console.log(btn);
-      btn.addEventListener('click', () => {
-        console.log("archive button clicked");
-      });
-      // archive button and unarchive button
-      if (email.archived === true){
-        document.querySelector("#archive").classList.toggle("text-rose-500");
-        
-      }
-      // add event listener to archive button
-      
-      // btn.addEventListener('click', () => {
-      //   console.log("archive button clicked");
-      //   if (email.archived === false){
-      //     archive_email(email.id, "archive");
-      //   }
-      //   else if (email.archived === true){
-      //     archive_email(email.id, "unarchive");
-      //   }
-      // });
-      
 
       // Show the email data
       document.querySelector('#email-subject').innerHTML = email.subject;
@@ -140,6 +117,22 @@ function view_email(id){
       
       // reply button
       email_view.innerHTML += `<button class="btn btn-sm btn-outline-primary" type="button" onclick="reply_email(${email.id})">Reply</button>`;
+       
+      // archive button and unarchive button
+       if (email.archived === true){
+        document.querySelector("#archive_Icon").classList.toggle("text-rose-500");
+       }
+      
+       // add event listener to archive button
+      document.querySelector("#archive_Icon").addEventListener('click', () => {
+        console.log("archive button clicked");
+        if (email.archived === false){
+          archive_email(email.id, "archive");
+        }
+        else if (email.archived === true){
+          archive_email(email.id, "unarchive");
+        }
+      });
   });
 }
 
@@ -162,9 +155,8 @@ function archive_email(id,action){
       })
     })
   }
-  load_mailbox('inbox');
+  setTimeout(function() {load_mailbox('inbox');}, 10);
 }
-
 
 // function to reply email
 function reply_email(id){

@@ -95,13 +95,12 @@
             <!-- List Emails section-->
             <!-- Email section-->
             
-
+            
             <div id="email-view" class="">
+                
                 <div id="email-nav">
                     <div class="flex flex-row justify-between">
-                        
-                        <div class="flex flex-row">
-    
+                        <div id="buttons-set1" class="flex flex-row">
                             <button id="inbox" onclick="load_mailbox('inbox')" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-chevron-left"></i> 
                             </button>
@@ -185,5 +184,6 @@
             document.querySelector(".sidebar").classList.toggle('hidden');
             document.querySelector(".sidebar").classList.toggle('flex');
         }
+        
     </script>
 {% endblock %}
