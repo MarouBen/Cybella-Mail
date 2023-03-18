@@ -7,11 +7,12 @@
         <title>{% block title %}Mail{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
         <link rel="stylesheet" href="{% static 'mail/twittersearch.css' %}">
+        <script src="https://kit.fontawesome.com/d61c00eed6.js" crossorigin="anonymous"></script>
         {% tailwind_css %}
         {% block script %}
         {% endblock %}
     </head>
-    <body class="">
+    <body class="overflow-hidden">
         <div class="container">
             {% block body %}
             {% endblock %}

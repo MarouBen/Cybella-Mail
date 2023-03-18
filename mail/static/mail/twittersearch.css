@@ -4,7 +4,7 @@
   --input-bg-color: #283542;
   --focus-input-bg-color: transparent;
   --text-color: #949faa;
-  --active-color: #1b9bee;
+  --active-color: #0369a1;
   --width-of-input: 200px;
   --inline-padding-of-input: 1.2em;
   --gap: 0.9rem;
@@ -70,12 +70,14 @@
   background: var(--active-color);
   opacity: 0;
   visibility: hidden;
+  right:1px;
 }
 /* styling of input */
 .searchInput {
   color: var(--input-text-color);
   width: 100%;
   margin-inline: min(2em,calc(var(--inline-padding-of-input) + var(--gap)));
+  margin-right: 10px;
   background: none !important;
   border: none !important;
   padding: 0!important;

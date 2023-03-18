@@ -4,13 +4,15 @@
 {% block body %}
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
-        <div class="sidebar top-0 bottom-0 lg:left-0 lg:h-screen p-2 w-[300px] bg-gray-900">
-            <div id="logo">
-                <h1 class="text-white">Mailify</h1>
+        <div class="sidebar flex flex-col top-0 bottom-0 lg:left-0 lg:h-screen p-2 pb-0 w-[300px] bg-gray-900 overflow-y-auto">
+            <div id="logo" class="flex text-center my-5">
+                <img src="{% static 'mail/M_logo.png' %}" alt="logo" class="w-20 h-14 mt-2">
+                <h1 class="text-white font-bold text-4xl pl-2 pt-5">Mailify</h1>
             </div>
+            <hr class="my-5 text-gray-500 opacity-20">
             <!-- Twitter search input-->
                 <div class="my-3" id="search">
-                    <form class="searchForm">
+                    <form class="searchForm w-[93%]">
                         <label for="search">
                             <input class="searchInput" type="text" required="" placeholder="Search" id="search">
                             <div class="search-bg"></div>
@@ -30,22 +32,34 @@
                     </form>
                 </div>
             <!-- Twitter search input-->
-            <div>
-                <button class="w-full text-left bg-transparent hover:bg-blue-500 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
-                    Button
-                </button>
-                <button class="w-full text-left bg-transparent hover:bg-blue-500 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
-                    Button
-                </button>
-                <button class="w-full text-left bg-transparent hover:bg-blue-500 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
-                    Button
-                </button>
-                <button class="w-full text-left bg-transparent hover:bg-blue-500 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
-                    Button
-                </button>
+            <!-- menu buttons -->
+            <div class="flex flex-col justify-between flex-grow">
+                <div class="">
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i>Compose
+                    </button>
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-inbox mr-2"></i>Inbox
+                    </button>
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-paper-plane mr-2"></i>Sent
+                    </button>
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-box-archive mr-2"></i>Archive
+                    </button>
+                    <hr class="my-5 text-gray-500 opacity-20">
+                </div>
+                <div class="bg-slate-800 py-4 px-2 -mx-2 flex justify-between">
+                    <span class="text-white hover:text-rose-500 hover:cursor-default font-semibold">{{ request.user.email }}</span>
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket text-white leading-7 pr-3 text-xl hover:text-sky-700 hover:cursor-pointer"></i>
+                    </a>
+                </div>
             </div>
+            <!-- menu buttons -->
         </div>
         <!-- Sidebar -->
+
         <div id="content" class="border-solid border-2 w-screen h-full p-6 ">
             <div id="Title" class="m-2 bg-red-600">
                 <h1>Title of section</h1>
