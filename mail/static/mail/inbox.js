@@ -122,7 +122,8 @@ function view_email(id){
         })
       })
       
-       // add event listener to archive button
+      // add event listener to buttons
+      //// Archive Icon
       document.querySelector("#archive_Icon").addEventListener('click', () => {
         console.log("archive button clicked");
         if (email.archived === false){
@@ -132,6 +133,12 @@ function view_email(id){
           archive_email(email.id, "unarchive");
         }
       });
+      //// Reply button
+      document.querySelector("#reply_btn").addEventListener('click', () => {
+        console.log("reply button clicked");
+        reply_email(email.id);
+      });
+
   });
 }
 

@@ -94,34 +94,32 @@
             </div>
             <!-- List Emails section-->
             <!-- Email section-->
-            
-            
             <div id="email-view" class="">
                 
                 <div id="email-nav">
                     <div class="flex flex-row justify-between">
                         <div id="buttons-set1" class="flex flex-row">
-                            <button id="inbox" onclick="load_mailbox('inbox')" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="inbox" title="back" onclick="load_mailbox('inbox')" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-chevron-left"></i> 
                             </button>
-                            <button id="archive_Icon" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="archive_Icon" title="archive" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-box-archive "></i>
                             </button>
-                            <button id="spam" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="spam" title="spam" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-triangle-exclamation"></i>
                             </button>
-                            <button id="delete" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="delete" title="delete" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-                            <button id="forward" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="forward" title="forward" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-share"></i>
                             </button>
                         </div>
                         <div class="flex flex-row">
-                            <button id="reply" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="reply" title="reply" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-reply"></i>
                             </button>
-                            <button id="option" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
+                            <button id="option" title="options" class="m-2 text-gray-500 text-2xl hover:text-rose-500 cursor-pointer">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                         </div>
@@ -143,9 +141,16 @@
                         <p id="email-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam aliquam, nisl nisl aliquet nunc, eget aliquam nisl nisl sit amet nisl. Nulla fa</p>
                     </div>
                 </div>
+                <div id="RF_btns" class="flex justify-end">
+                    <button id="reply_btn" class="pl-0 w-32 m-2 bg-transparent hover:bg-rose-500 text-rose-500 font-semibold hover:text-white py-2 px-4 border-2 border-rose-500 hover:border-transparent rounded">
+                        <i class="fa-solid fa-reply px-2"></i>reply
+                    </button>
+                    <button id="forward_btn" class="w-32 m-2 bg-transparent hover:bg-sky-700 text-sky-700 font-semibold hover:text-white py-2 px-4 border-2 border-sky-700 hover:border-transparent rounded">
+                        <i class="fa-solid fa-share px-2"></i>forward
+                    </button>
+                </div>
             </div>
             <!-- Email section-->
-
         </div>
         <!-- Main content -->
     </div>
