@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block body %}
-    <span class="menu inline-block text-2xl p-3 m-5 bg-slate-900 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
         <div class="sidebar fixed top-0 bottom-0 hidden flex-col p-2 pb-0 w-[300px] bg-gray-900 overflow-auto lg:flex ">
@@ -39,16 +38,16 @@
             <!-- menu buttons -->
             <div class="flex flex-col justify-between flex-grow">
                 <div class="">
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-pen-to-square mr-2"></i>Compose
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-inbox mr-2"></i>Inbox
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-paper-plane mr-2"></i>Sent
                     </button>
-                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-2 px-4 border border-blue-500 border-transparent rounded">
+                    <button class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
                         <i class="fa-solid fa-box-archive mr-2"></i>Archive
                     </button>
                     <hr class="my-5 text-gray-500 opacity-20">
@@ -66,23 +65,25 @@
 
         <!-- Main content -->
         <div id="content" class=" w-screen h-full p-6 lg:ml-[300px]">
+            <div id="Title" class="flex flex-row ">
+                <span class="menu inline-block text-2xl p-3 mx-4 mb-2 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
+                <h1 class="text-5xl text-gray-700 font-semibold">Inbox</h1>
+            </div>
+            <hr class="my-5 text-gray-500 opacity-50">
             <div class="bg-white">
                 <div class="overflow-x-auto border-x border-t">
                    <table class="table-auto w-full">
                     <tbody id="Emails">
                         <tr class="border-b hover:bg-gray-50">
-                            <td class="p-4 w-1">
-                                <div class="flex items-center">
-                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                </div>
+                            <td class="p-4 w-1 leading-3">
+                                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600">
                             </td>
                             <td class="p-2">Prof. Lucie Waters </td>
                             <td class="p-2">basic@example.com </td>
                             <td class="text-right p-2">Administrator</td>
                         </tr>
                         <tr class="border-b hover:bg-gray-50">
-                            <td class="p-4">
+                            <td class="p-4 leading-3">
                                 <input type="checkbox" class="w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600">
                             </td>
                             <td class="p-2">Prof. Lucie Waters </td>
