@@ -2,12 +2,16 @@
 {% load static %}
 
 {% block body %}
+    <span class="menu inline-block text-2xl p-3 m-5 bg-slate-900 text-white md:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
-        <div class="sidebar flex flex-col top-0 bottom-0 lg:left-0 lg:h-screen p-2 pb-0 w-[300px] bg-gray-900 overflow-y-auto">
-            <div id="logo" class="flex text-center my-5">
-                <img src="{% static 'mail/M_logo.png' %}" alt="logo" class="w-20 h-14 mt-2">
-                <h1 class="text-white font-bold text-4xl pl-2 pt-5">Mailify</h1>
+        <div class="sidebar hidden flex-col p-2 pb-0 w-[300px] bg-gray-900 overflow-auto md:flex ">
+            <div id="logo" class="flex flex-row justify-between">
+                <div class="flex text-center my-5 pl-4">
+                    <img src="{% static 'mail/M_logo.png' %}" alt="logo" class="w-14 h-10 mt-2">
+                    <h1 class="text-white font-bold text-3xl pl-4 pt-3">Mailify</h1>
+                </div>
+                <span class="md:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3" onclick="showSidebar()"><i class="fa-solid fa-xmark"></i></span>
             </div>
             <hr class="my-5 text-gray-500 opacity-20">
             <!-- Twitter search input-->
@@ -49,7 +53,7 @@
                     </button>
                     <hr class="my-5 text-gray-500 opacity-20">
                 </div>
-                <div class="bg-slate-800 py-4 px-2 -mx-2 flex justify-between">
+                <div class="bg-slate-800 py-4 px-2 -mx-2 flex justify-between overflow-hidden">
                     <span class="text-white hover:text-rose-500 hover:cursor-default font-semibold">{{ request.user.email }}</span>
                     <a href="{% url 'logout' %}">
                         <i class="fa-solid fa-right-from-bracket text-white leading-7 pr-3 text-xl hover:text-sky-700 hover:cursor-pointer"></i>
@@ -60,7 +64,7 @@
         </div>
         <!-- Sidebar -->
 
-        <div id="content" class="border-solid border-2 w-screen h-full p-6 ">
+        <div id="content" class=" w-screen h-full p-6 ">
             <div id="Title" class="m-2 bg-red-600">
                 <h1>Title of section</h1>
             </div>
@@ -114,4 +118,11 @@
 
 {% block script %}
     <script src="{% static 'mail/inbox.js' %}"></script>
+    <script type="text/javascript">
+        function showSidebar() {
+            document.querySelector(".menu").classList.toggle('hidden');
+            document.querySelector(".sidebar").classList.toggle('hidden');
+            document.querySelector(".sidebar").classList.add('absolute','w-screen','h-screen');
+        }
+    </script>
 {% endblock %}
