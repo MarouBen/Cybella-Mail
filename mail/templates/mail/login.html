@@ -1,24 +1,104 @@
 {% extends "mail/layout.html" %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'mail/login.css' %}">
+{% endblock %}
 
 {% block body %}
-
-    <h2>Login</h2>
-
-    {% if message %}
+    {% comment %} {% if message %}
         <div>{{ message }}</div>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+    <div class="boy w-screen h-screen bg-gray-200 flex flex-col">
+        <!-- Container -->
+        <div class="log-container">
+            <!-- Overlay -->
+            <div class="overlay">
+                <div class="signin box">
+                    <h1 class="title2 font-semibold text-4xl">Welcome back!</h1>
+                    <p class="under_title">To keep connected with us please login with your personal info</p>
+                    <button class="slide_btn L_btn mb-5" id="login"><span>Login</span></button>
+                </div>
+                <div class="register box">
+                    <h1 class="title2 font-semibold text-4xl">Hello, Friend!</h1>
+                    <p class="under_title">Enter your personal details and start journey with us</p>
+                    <button class="slide_btn R_btn" id="register"><span>Register</span></button>
+                </div>
+            </div>
+            <!-- Overlay -->
+            <!-- Forms -->
+            <div class="formBox"> 
+                <!-- Sign In -->
+                <div class="form signInForm">
+                    <form class="sliding_form" action="{% url 'login' %}" method="post" >
+                        {% csrf_token %}
+                        <h1 class="font-semibold text-4xl mb-5">Login here</h1>
+                        <div class="textInputWrapper">
+                            <input class="LR_input"  type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="textInputWrapper">
+                            <input class="LR_input" type="password" placeholder="Password"  name="password" >
+                        </div>
+                        <button class="main_btn">Login</button>
+                        <!-- <a href="#" class="forget">Forgot Password</a> -->
+                        <!-- Optionnal -->
+                        <span>or use your account:</span>
+                        <div class="social-container">
+                            <a href="#" class="social"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                        <!-- Optionnal -->
+                        <!-- alert div-->
+                        {% if message %}
+                            <div class="bg-red-400 rounded-lg p-2" role="alert">
+                                <strong class="text-white">Invalid Credentials!</strong> Please enter correct email and password.
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- Sign In -->
+                <!-- Register -->
+                <div class="form registerForm">
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <h1 class="title1 font-semibold text-4xl">Register here</h1>
+                        <div class="textInputWrapper"><input class="LR_input" type="text" placeholder="Username"></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="email" placeholder="Email" name="email"></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Password" name="password"></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Confirm Password"  name="confirmation"></div>
+                        <button class="main_btn">Register</button>
+                        <!-- Optionnal -->
+                        <span>or use your email for registration:</span>
+                        <div class="social-container">
+                            <a href="#" class="social"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                        <!-- Optionnal -->  
+                        
+                    </form>
+                </div>
+                <!-- Register -->
+            </div>
+            <!-- Forms -->
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
+        <!-- Container -->
+        {% if message2 %}
+            <div class="bg-red-400 rounded-lg p-4" role="alert">
+                <strong class="text-white">Failed to register!</strong> {{message2}}
+            </div>
+        {% endif %} 
+    </div>
+    
+    <script>
+        const signInButton = document.querySelector(".L_btn");
+        const registerButton = document.querySelector(".R_btn");
+        const formBox = document.querySelector(".formBox");
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+        registerButton.onclick = () => {
+            formBox.classList.add("active");
+        }
+        signInButton.onclick = () => {
+            formBox.classList.remove("active");
+        }
+    </script>
 {% endblock %}

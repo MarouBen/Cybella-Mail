@@ -268,6 +268,10 @@ function show_emails(emails, tableBody){
 
     // append row to the table
     tableBody.append(element);
+    // check if email is read
+    if (email.read === true){
+      element.classList.add("bg-gray-200");
+    }
     // add event listener to the email
     element.addEventListener('click', () => view_email(email.id));
      // add event listener to checkbox
@@ -327,8 +331,6 @@ function searching(event) {
     fetch(`/emails/search/${searchValue}`,{method: 'GET',})
     .then(response => response.json())
     .then(emails => {
-      // Print emails
-      console.log(emails);
       // Show the emails
       const tableBody = document.querySelector('#emails-view');
       document.querySelector('#title-change').innerHTML = `<h3>Searching all emails containing:<span class="text-sky-700"> ${searchValue}</span></h3>`;

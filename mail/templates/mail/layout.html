@@ -6,8 +6,8 @@
     <head>
         <title>{% block title %}Mail{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
-        <link rel="stylesheet" href="{% static 'mail/twittersearch.css' %}">
+        {% block styles %}
+        {% endblock %}
         <script src="https://kit.fontawesome.com/d61c00eed6.js" crossorigin="anonymous"></script>
         {% tailwind_css %}
         {% block script %}

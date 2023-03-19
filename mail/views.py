@@ -184,8 +184,8 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "mail/register.html", {
-                "message": "Passwords must match."
+            return render(request, "mail/login.html", {
+                "message2": "Passwords must match."
             })
 
         # Attempt to create new user
@@ -194,10 +194,10 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return render(request, "mail/register.html", {
-                "message": "Email address already taken."
+            return render(request, "mail/login.html", {
+                "message2": "Email address already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "mail/register.html")
+        return render(request, "mail/login.html")

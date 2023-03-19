@@ -1,6 +1,9 @@
 {% extends "mail/layout.html" %}
 {% load static %}
-
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'mail/twittersearch.css' %}">
+{% endblock %}
 {% block body %}
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
