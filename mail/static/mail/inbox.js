@@ -230,7 +230,7 @@ function show_emails(emails, tableBody){
   emails.forEach(email => {
     // create a row for each email
     const element = document.createElement('tr');
-    element.className = "border-b hover:bg-gray-50 cursor-pointer "; 
+    element.className = "border-b hover:bg-gray-50 cursor-pointer hover:shadow-lg"; 
 
     // add a checkbox
     const checkbox = document.createElement('input');
@@ -279,4 +279,26 @@ function delete_email(id){
     method: 'DELETE',
   })
   setTimeout(function() {load_mailbox('inbox');}, 10);
+}
+
+// function to refresh the section
+function refresh(){
+  var location = document.querySelector("TITLE").innerHTML;
+  if (location === "Inbox"){
+    load_mailbox('inbox');
+  }
+  else if (location === "Sent"){
+    load_mailbox('sent');
+  }
+  else if (location === "Archive"){
+    load_mailbox('archive');
+  }
+}
+
+// function to select all
+function select_all(){
+  var checkboxes = document.querySelectorAll('input[type=checkbox]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.toggleAttribute("checked");
+  });
 }

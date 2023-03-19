@@ -77,19 +77,23 @@
             <!-- List Emails section-->
             <div id="emails-section" class="bg-white " >
                 <hr class="my-5 text-gray-500 opacity-50">
-                <div class="overflow-y-scroll border-x border-t h-fit max-h-[750px]">
-                <table  class="table-fixed w-full">
-                    <tbody id="emails-view">
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-4 w-1 leading-3">
-                                <input type="checkbox" class="w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600">
-                            </td>
-                            <td class="p-2">Prof. Lucie Waters </td>
-                            <td class="p-2">basic@example.com </td>
-                            <td class="text-right p-2">Administrator</td>
-                        </tr>
-                    </tbody>
-                </table>
+                
+                    <div class="flex flex-row border-2 rounded-t border-b-0 bg-gray-600 border-gray-400 justify-between">
+                        <div class="p-4 leading-3 flex flx-row items-center">
+                            <input onchange="select_all()" title="select all" type="checkbox" class="fw-6 h-4 text-sky-700 rounded bg-gray-100 border-gray-500" id="check-all">
+                            <span class="mx-2 text-white">Select all</span>
+                        </div>
+                        <div class="p-4 w-1 leading-3 text-white font-semibold items-center mx-8 flex text-lg">
+                            <button  title="refresh" onclick="refresh()"><i class="fa-solid fa-rotate-right"></i></button>
+                            <button><i class="fa-solid fa-ellipsis-vertical px-4"></i></button>
+                        </div>
+                    </div>
+                    <div class="overflow-y-scroll border-x border-t h-fit max-h-[750px] ">
+                    <table class="table-fixed w-full border-gray-900">
+                        <tbody id="emails-view">
+                            {# trs/tds here #}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- List Emails section-->
