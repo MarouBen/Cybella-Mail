@@ -129,16 +129,16 @@
                 <div id="email-content" class="">
                     <div class="flex flex-row justify-between ">
                         <div class="flex flex-col">
-                            <span id="email-subject" class="text-4xl text-gray-900 font-semibold my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            <span class="text-gray-500">From: <span id="email-sender" class="text-gray-700">Prof. Lucie Waters</span></span>
+                            <span id="email-subject" class="text-4xl text-gray-900 font-semibold my-3"></span>
+                            <span class="text-gray-500">From: <span id="email-sender" class="text-gray-700"></span></span>
                             <span class="text-gray-500">To: <span class="text-gray-700">{{ request.user.email }}</span></span>
                         </div>
                         <div class="flex flex-col mt-14">
-                            <span class="text-gray-500">On: <span id="time" class="text-gray-700">2021-05-05</span></span>
+                            <span class="text-gray-500"><span id="time" class="text-gray-700"></span></span>
                         </div>
                     </div>
                     <div class="text-gray-700 my-5">
-                        <p id="email-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam aliquam, nisl nisl aliquet nunc, eget aliquam nisl nisl sit amet nisl. Nulla fa</p>
+                        <p id="email-body"></p>
                     </div>
                 </div>
                 <div id="RF_btns" class="flex justify-end">
@@ -151,33 +151,34 @@
                 </div>
             </div>
             <!-- Email section-->
+            <div id="compose-view">
+                <hr class="my-5 text-gray-500 opacity-50">
+                <form id="compose-form">
+                    <div class="flex flex-row items-center">
+                        <span class="text-gray-500 w-20">From:</span><input type="text" disabled class="m-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6 bg-gray-300" value="{{ request.user.email }}">
+                    </div>
+                    <div class="flex flex-row items-center">
+                        <span class="text-gray-500 w-20">To:</span><input placeholder="you@example.com" id="compose-recipients" type="text" class="m-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6">
+                    </div>
+                    <div class="flex flex-row items-center">
+                        <span class="text-gray-500 w-20">Subject:</span><input placeholder="subject" id="compose-subject" type="text" class="m-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:text-sm sm:leading-6">
+                    </div>
+                    <div class="flex flex-row items-center">
+                        <textarea id="compose-body" rows="3" class="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-700 sm:py-1.5 sm:text-sm sm:leading-6" placeholder="Your email body here..."></textarea>
+                      </div>
+                    <div id="DS_btns" class="flex justify-end">
+                        <button type="button" id="discard-btn" class="w-32 m-2 bg-transparent hover:bg-rose-500 text-rose-500 font-semibold hover:text-white py-2 px-4 border-2 border-rose-500 hover:border-transparent rounded">
+                            <i class="fa-solid fa-trash"></i> Discard
+                        </button>
+                        <button  id="send_btn" class="w-32 m-2 bg-transparent hover:bg-sky-700 text-sky-700 font-semibold hover:text-white py-2 px-4 border-2 border-sky-700 hover:border-transparent rounded">
+                            <i class="fa-solid fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </form>
+                
+            </div>
         </div>
         <!-- Main content -->
-    </div>
-
-
-
-
-
-        <div>
-            <div id="compose-view">
-                <h3>New Email</h3>
-                <form id="compose-form">
-                    <div class="form-group">
-                        From: <input disabled class="form-control" value="{{ request.user.email }}">
-                    </div>
-                    <div class="form-group">
-                        To: <input id="compose-recipients" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="compose-subject" placeholder="Subject">
-                    </div>
-                    <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-                    <input type="submit" class="btn btn-primary mt-2"/>
-                </form>
-            </div>
-        <div> 
-
     </div>
 {% endblock %}
 

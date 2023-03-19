@@ -12,9 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function compose_email() {
   // Show compose view and hide other views
-  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
+  document.querySelector('#emails-section').style.display = 'none';
+  document.querySelector('#Title').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'block';
-
+  document.querySelector('#title-change').innerHTML = `<h3>Compose Email</h3>`;
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
@@ -35,13 +37,13 @@ function load_mailbox(mailbox) {
 
   // Load the emails
   if (mailbox === 'inbox'){
-    load_inbox(tableBody)
+    setTimeout(function() {load_inbox(tableBody);}, 10);
   }
   if (mailbox === 'archive'){
-    load_archive(tableBody)
+    setTimeout(function() {load_archive(tableBody);}, 10);
   }
   if (mailbox === 'sent'){
-    load_sent(tableBody)
+    setTimeout(function() {load_sent(tableBody);}, 10);
   }
 }
 
@@ -58,7 +60,6 @@ function load_inbox(list){
       });
   }
 
-
 // load archive emails
 function load_archive(list){
   fetch('/emails/archive')
@@ -72,8 +73,6 @@ function load_archive(list){
       });
   }
 
-
-
 //load sent emails
 function load_sent(list){
   fetch('/emails/sent')
@@ -86,7 +85,6 @@ function load_sent(list){
       show_emails(emails, list)
       });
   }
-
 
 // function to view email
 function view_email(id){
@@ -175,7 +173,8 @@ function reply_email(id){
       // Show the email data
       document.querySelector('#compose-recipients').value = email.sender;
       document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
-      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}
+      \n ------------------------------------------------------\n`;
   });
 }
 
@@ -195,7 +194,7 @@ function send_mail(){
       // Print result
       console.log(result);
   });
-  load_mailbox('sent');
+  setTimeout(function() {load_mailbox('sent');}, 10);
 }
 
 
@@ -211,7 +210,7 @@ function show_emails(emails, tableBody){
 
     // add a checkbox
     const checkbox = document.createElement('input');
-    checkbox.className = "w-4 h-4 text-blue-600 rounded  ring-offset-gray-800 bg-gray-700 border-gray-600";
+    checkbox.className = "w-4 h-4 text-sky-700 rounded bg-gray-100 border-gray-500";
     checkbox.type = "checkbox";
 
     const checkkboxtd = document.createElement('td');
@@ -242,5 +241,10 @@ function show_emails(emails, tableBody){
     tableBody.append(element);
     // add event listener to the email
     element.addEventListener('click', () => view_email(email.id));
+     // add event listener to checkbox
+     checkbox.addEventListener('click', (event) => {
+      // prevent click event from propagating to row element
+      event.stopPropagation();
+    });
   });
 }
