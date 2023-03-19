@@ -318,3 +318,5 @@ function delete_selected(){
     }
   });
 }
+
+//function that search for emails

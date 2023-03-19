@@ -136,7 +136,21 @@ def delete(request, email_id):
     else:
         return JsonResponse({"error": "DELETE request required."}, status=400)
     
-
+    
+@csrf_exempt
+@login_required
+def search(request,query):
+    if request.method == "GET":
+        list = []
+        emails = Email.objects.filter(user=request.user)
+        for email in emails:
+            if query.lower() in email.subject.lower() or query.lower() in email.body.lower():
+                list.append(email.serialize())
+        return JsonResponse(list, safe=False)
+    else :
+        return JsonResponse({"error": "GET request required."}, status=400)
+        
+    
 def login_view(request):
     if request.method == "POST":
 

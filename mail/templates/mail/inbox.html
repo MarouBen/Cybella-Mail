@@ -4,20 +4,21 @@
 {% block body %}
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
-        <div class="sidebar fixed top-0 bottom-0 hidden flex-col p-2 pb-0 w-[300px] bg-gray-900 overflow-auto lg:flex ">
-            <div id="logo" class="flex flex-row justify-between">
+        <div class="sidebar flex fixed top-0 bottom-0 flex-col p-2 pb-0 w-[60px] bg-gray-900 overflow-auto lg:w-[300px] z-50">
+            <span class="menu inline-block text-2xl p-3 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
+            <div id="logo" class="lg:flex flex-row justify-between hidden">
                 <div class="flex text-center my-3 pl-4">
                     <img src="{% static 'mail/M_logo.png' %}" alt="logo" class="w-14 h-10 mt-2">
                     <h1 class="text-white font-bold text-3xl pl-4 pt-3">Mailify</h1>
                 </div>
-                <span class="lg:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3" onclick="showSidebar()"><i class="fa-solid fa-xmark"></i></span>
+                <span class="lg:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3 bottom-16 left-60" onclick="hideSidebar()"><i class="fa-solid fa-xmark"></i></span>
             </div>
             <hr class="my-5 text-gray-500 opacity-20">
             <!-- Twitter search input-->
-                <div class="my-3" id="search">
-                    <form class="searchForm w-[93%]">
+                <div class="my-3" id="searchDiv">
+                    <form  class="searchForm w-[93%]">
                         <label for="search">
-                            <input class="searchInput" type="text" required="" placeholder="Search" id="search">
+                            <input class="searchInput" type="text" placeholder="Search" id="search" onkeydown="search(event)">
                             <div class="search-bg"></div>
                             <div class="search">
                                 <svg viewBox="0 0 24 24" aria-hidden="true" class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-4wgw6l r-f727ji r-bnwqim r-1plcrui r-lrvibr">
@@ -38,24 +39,24 @@
             <!-- menu buttons -->
             <div class="flex flex-col justify-between flex-grow">
                 <div class="">
-                    <button id="compose" class="w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
-                        <i class="fa-solid fa-pen-to-square mr-2"></i>Compose
+                    <button id="compose" class="text-xl w-full text-left bg-transparent hover:bg-sky-700 text-rose-500 hover:text-white font-semibold mb-4 py-3 px-3 lg:px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i><span class="menu-element  hidden lg:inline">Compose</span>
                     </button>
-                    <button id="inbox" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
-                        <i class="fa-solid fa-inbox mr-2"></i>Inbox
+                    <button id="inbox" class="text-xl w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-3 lg:px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-inbox mr-2"></i><span class="menu-element hidden lg:inline">Inbox</span>
                     </button>
-                    <button id="sent" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
-                        <i class="fa-solid fa-paper-plane mr-2"></i>Sent
+                    <button id="sent" class="text-xl w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-3 lg:px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-paper-plane mr-2 "></i><span class="menu-element hidden lg:inline">Sent</span>
                     </button>
-                    <button id="archived" class="w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-4 border border-blue-500 border-transparent rounded">
-                        <i class="fa-solid fa-box-archive mr-2"></i>Archive
+                    <button id="archived" class="text-xl w-full text-left bg-transparent hover:bg-sky-700 text-white font-semibold mb-4 py-3 px-3 lg:px-4 border border-blue-500 border-transparent rounded">
+                        <i class="fa-solid fa-box-archive mr-2"></i><span class="menu-element  hidden lg:inline">Archive</span>
                     </button>
                     <hr class="my-5 text-gray-500 opacity-20">
                 </div>
                 <div class="bg-slate-800 py-4 px-2 -mx-2 flex justify-between overflow-hidden">
-                    <span class="text-white hover:text-rose-500 hover:cursor-default font-semibold">{{ request.user.email }}</span>
+                    <span class="text-white hover:text-rose-500 hover:cursor-default font-semibold lg:inline hidden">{{ request.user.email }}</span>
                     <a href="{% url 'logout' %}">
-                        <i class="fa-solid fa-right-from-bracket text-white leading-7 pr-3 text-xl hover:text-sky-700 hover:cursor-pointer"></i>
+                        <i class="fa-solid fa-right-from-bracket text-white leading-7 p-3 lg:p-0 lg:pr-3 text-xl hover:text-sky-700 hover:cursor-pointer"></i>
                     </a>
                 </div>
             </div>
@@ -64,11 +65,11 @@
         <!-- Sidebar -->
 
         <!-- Main content -->
-        <div id="content" class=" w-screen h-full p-6 lg:ml-[300px]">
+        <div id="content" class=" w-screen h-full p-1 lg:p-6 ml-[60px] lg:ml-[300px]">
 
             <!-- Title of section-->
             <div id="Title" class="flex flex-row mb-5 ">
-                <span class="menu inline-block text-2xl p-3 mx-4 mb-2 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
+                
                 <h1 id="title-change" class="text-5xl text-gray-700 font-semibold">Inbox</h1>
             </div>
            
@@ -78,19 +79,19 @@
             <div id="emails-section" class="bg-white " >
                 <hr class="my-5 text-gray-500 opacity-50">
                 
-                    <div class="flex flex-row border-2 rounded-t border-b-0 bg-gray-600 border-gray-400 justify-between">
-                        <div class="p-4 leading-3 flex flx-row items-center">
-                            <input onchange="select_all()" title="select all" type="checkbox" class="fw-6 h-4 text-sky-700 rounded bg-gray-100 border-gray-500" id="check-all">
-                            <span class="mx-2 text-white">Select all</span>
-                        </div>
-                        <div class="p-4 w-1 leading-3 text-white font-semibold items-center mx-10 flex text-lg">
-                            <button  title="refresh" onclick="refresh()"><i class="fa-solid fa-rotate-right"></i></button>
-                            <button title="delete" onclick="delete_selected()" ><i class="fa-solid fa-trash px-3"></i></button>
-                            
-                        </div>
+                <div class="flex flex-row border-2 rounded-t border-b-0 bg-gray-600 border-gray-400 justify-between">
+                    <div class="p-4 leading-3 flex flx-row items-center">
+                        <input onchange="select_all()" title="select all" type="checkbox" class="fw-6 h-4 text-sky-700 rounded bg-gray-100 border-gray-500" id="check-all">
+                        <span class="mx-2 text-white">Select all</span>
                     </div>
-                    <div class="overflow-y-scroll border-x border-t h-fit max-h-[750px] ">
-                    <table class="table-fixed w-full border-gray-900">
+                    <div class="p-4 w-1 leading-3 text-white font-semibold items-center mx-10 flex text-lg">
+                        <button  title="refresh" onclick="refresh()"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button title="delete" onclick="delete_selected()" ><i class="fa-solid fa-trash px-3"></i></button>
+                        
+                    </div>
+                </div>
+                <div class="overflow-y-scroll overflow-x-auto border-x border-t h-fit max-h-[750px] ">
+                    <table class="table-fixed w-auto lg:w-full overflow-x-auto border-gray-900 ">
                         <tbody id="emails-view">
                             {# trs/tds here #}
                         </tbody>
@@ -191,9 +192,22 @@
     <script src="{% static 'mail/inbox.js' %}"></script>
     <script type="text/javascript">
         function showSidebar() {
-            document.querySelector(".menu").classList.toggle('hidden');
-            document.querySelector(".sidebar").classList.toggle('hidden');
-            document.querySelector(".sidebar").classList.toggle('flex');
+            document.querySelectorAll(".menu-element").forEach(element => {
+                element.classList.toggle('hidden');
+            });
+            document.querySelector("#logo").classList.toggle('hidden');
+            document.querySelector(".sidebar").classList.remove('w-[60px]');
+            document.querySelector(".sidebar").classList.add('w-[300px]');
+            document.querySelector(".menu").classList.add('hidden');
+        }
+        function hideSidebar() {
+            document.querySelectorAll(".menu-element").forEach(element => {
+                element.classList.toggle('hidden');
+            });
+            document.querySelector("#logo").classList.toggle('hidden');
+            document.querySelector(".sidebar").classList.remove('w-[300px]');
+            document.querySelector(".sidebar").classList.add('w-[60px]');
+            document.querySelector(".menu").classList.remove('hidden');
         }
         
     </script>
