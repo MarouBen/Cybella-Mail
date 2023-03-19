@@ -211,7 +211,7 @@ function show_emails(emails, tableBody){
   emails.forEach(email => {
     // create a row for each email
     const element = document.createElement('tr');
-    element.className = "border-b hover:bg-gray-50 cursor-pointer hover:shadow-lg"; 
+    element.className = "border-b hover:bg-gray-50 cursor-pointer hover:shadow-lg border-gray-400"; 
 
     // add a checkbox
     const checkbox = document.createElement('input');
