@@ -126,6 +126,16 @@ def email(request, email_id):
             "error": "GET or PUT request required."
         }, status=400)
 
+@csrf_exempt
+@login_required
+def delete(request, email_id):
+    if request.method == "DELETE":
+        # delete email
+        email = Email.objects.get(pk=email_id)
+        email.delete()     
+    else:
+        return JsonResponse({"error": "DELETE request required."}, status=400)
+    
 
 def login_view(request):
     if request.method == "POST":
