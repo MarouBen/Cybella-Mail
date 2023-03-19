@@ -331,6 +331,7 @@ function searching(event) {
       console.log(emails);
       // Show the emails
       const tableBody = document.querySelector('#emails-view');
+      document.querySelector('#title-change').innerHTML = `<h3>Searching all emails containing:<span class="text-sky-700"> ${searchValue}</span></h3>`;
       show_emails(emails, tableBody);
     });
   }
