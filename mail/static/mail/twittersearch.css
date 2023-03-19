@@ -101,7 +101,7 @@
   fill: var(--active-color);
 }
 /* showing close button when typing */
-.searchInput:valid ~ .close-search {
+.searchInput:focus ~ .close-search {
   opacity: 1;
   visibility: visible;
 }

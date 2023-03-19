@@ -7,14 +7,14 @@
 {% block body %}
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
-        <div class="sidebar flex fixed top-0 bottom-0 flex-col p-2 pb-0 w-[60px] bg-gray-900 overflow-auto lg:w-[300px] z-50">
+        <div class="sidebar flex fixed top-0 bottom-0 flex-col p-2 pb-0 w-[60px] bg-gray-900 overflow-hidden lg:w-[300px] z-50">
             <span class="menu inline-block text-2xl p-3 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
             <div id="logo" class="lg:flex flex-row justify-between hidden">
                 <div class="flex text-center my-3 pl-4">
                     <img src="{% static 'mail/CM_logo.png' %}" alt="logo" class="w-18 h-12 mt-1">
                     <h1 class="text-white font-bold text-3xl pl-0 pt-3">Cybella Mail</h1>
                 </div>
-                <span class="lg:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3 bottom-16 left-60" onclick="hideSidebar()"><i class="fa-solid fa-xmark"></i></span>
+                <span class="lg:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3 bottom-20 left-64" onclick="hideSidebar()"><i class="fa-solid fa-xmark"></i></span>
             </div>
             <hr class="my-5 text-gray-500 opacity-20">
             <!-- Twitter search input-->
@@ -57,7 +57,7 @@
                     <hr class="my-5 text-gray-500 opacity-20">
                 </div>
                 <div class="bg-slate-800 py-4 px-2 -mx-2 flex justify-between overflow-hidden">
-                    <span class="text-white hover:text-rose-500 hover:cursor-default font-semibold lg:inline hidden">{{ request.user.email }}</span>
+                    <span id="currentUser" class="text-white hover:text-rose-500 hover:cursor-default font-semibold lg:inline hidden">{{ request.user.email }}</span>
                     <a href="{% url 'logout' %}">
                         <i class="fa-solid fa-right-from-bracket text-white leading-7 p-3 lg:p-0 lg:pr-3 text-xl hover:text-sky-700 hover:cursor-pointer"></i>
                     </a>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="overflow-y-scroll overflow-x-auto border-x border-t h-fit max-h-[750px] ">
-                    <table class="table-fixed w-auto lg:w-full overflow-x-auto border-gray-900 ">
+                    <table class="table-fixed w-auto sm:w-full overflow-x-auto border-gray-900 ">
                         <tbody id="emails-view">
                             {# trs/tds here #}
                         </tbody>
@@ -202,6 +202,8 @@
             document.querySelector(".sidebar").classList.remove('w-[60px]');
             document.querySelector(".sidebar").classList.add('w-[300px]');
             document.querySelector(".menu").classList.add('hidden');
+            document.querySelector("#currentUser").classList.remove('hidden'); 
+            document.querySelector("#currentUser").classList.add('inline');       
         }
         function hideSidebar() {
             document.querySelectorAll(".menu-element").forEach(element => {
@@ -211,6 +213,8 @@
             document.querySelector(".sidebar").classList.remove('w-[300px]');
             document.querySelector(".sidebar").classList.add('w-[60px]');
             document.querySelector(".menu").classList.remove('hidden');
+            document.querySelector("#currentUser").classList.add('hidden'); 
+            document.querySelector("#currentUser").classList.remove('inline py-2'); 
         }
         
         

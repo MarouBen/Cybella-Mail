@@ -1735,6 +1735,14 @@ select {
   top: 0px;
 }
 
+.bottom-20 {
+  bottom: 5rem;
+}
+
+.left-64 {
+  left: 16rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -3199,6 +3207,11 @@ select {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .pb-0 {
@@ -5389,6 +5402,10 @@ select {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.hover\:block:hover {
+  display: block;
+}
+
 .hover\:cursor-default:hover {
   cursor: default;
 }
@@ -5604,6 +5621,10 @@ select {
 }
 
 @media (min-width: 640px) {
+  .sm\:w-full {
+    width: 100%;
+  }
+
   .sm\:py-1 {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -5625,6 +5646,12 @@ select {
 
   .sm\:underline {
     text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:w-\[300px\] {
+    width: 300px;
   }
 }
 
