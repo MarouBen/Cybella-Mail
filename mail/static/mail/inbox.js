@@ -286,12 +286,33 @@ function refresh(){
 }
 
 // function to select all
-function select_all(){
+function select_all() {
+  var selectAllCheckbox = document.querySelector('#select_all');
   var checkboxes = document.querySelectorAll('input[type=checkbox]');
+
+  selectAllCheckbox.addEventListener('change', () => {
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAllCheckbox.checked;
+    });
+  });
+
   checkboxes.forEach((checkbox) => {
-    checkbox.toggleAttribute("checked");
+    checkbox.addEventListener('change', () => {
+      if (!checkbox.checked) {
+        selectAllCheckbox.checked = false;
+      } else {
+        var allChecked = true;
+        checkboxes.forEach((cb) => {
+          if (!cb.checked) {
+            allChecked = false;
+          }
+        });
+        selectAllCheckbox.checked = allChecked;
+      }
+    });
   });
 }
+
 
 //function that deletes all selected emails
 function delete_selected(){
