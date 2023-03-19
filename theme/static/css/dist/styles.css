@@ -1947,47 +1947,17 @@ select {
   height: 1.25rem;
 }
 
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[\] {
-  height: ;
-}
-
-.h-\[700px\] {
-  height: 700px;
-}
-
-.h-max {
-  height: -moz-max-content;
-  height: max-content;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
-.max-h-max {
-  max-height: -moz-max-content;
-  max-height: max-content;
-}
-
-.max-h-\[\] {
-  max-height: ;
-}
-
-.max-h-\[700px\] {
-  max-height: 700px;
 }
 
 .max-h-\[750px\] {

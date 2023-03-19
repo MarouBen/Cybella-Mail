@@ -98,20 +98,17 @@ function view_email(id){
   .then(email => {
       // Print email
       console.log(email);
-
       // Show the email data
       document.querySelector('#email-subject').innerHTML = email.subject;
       document.querySelector('#email-sender').innerHTML = email.sender;
       document.querySelector('#time').innerHTML = email.timestamp;
       document.querySelector('#email-body').innerHTML = email.body;
-      
       // archive button and unarchive button
       if (email.archived === true){
         document.querySelector("#archive_Icon").classList.add("text-rose-500");
       } else {
         document.querySelector("#archive_Icon").classList.remove("text-rose-500");
       }
-
       // mark email as read
       fetch(`/emails/${id}`, {
         method: 'PUT',
@@ -119,7 +116,6 @@ function view_email(id){
             read: true
         })
       })
-      
       // add event listener to buttons
       //// Archive Icon
       document.querySelector("#archive_Icon").addEventListener('click', () => {
@@ -139,9 +135,16 @@ function view_email(id){
         });
       });
       //// Forward button
-      document.querySelector("#forward_btn,#forward").addEventListener('click', () => {
+      document.querySelectorAll("#forward_btn,#forward").forEach((element)=>{
+        element.addEventListener('click', () => {
         console.log("forward button clicked");
         forward_email(email.id);
+        });
+      });
+      //// Delete button
+      document.querySelector("#delete").addEventListener('click', () => {
+        console.log("delete button clicked");
+        delete_email(email.id);
       });
   });
 }
@@ -268,4 +271,12 @@ function show_emails(emails, tableBody){
       event.stopPropagation();
     });
   });
+}
+
+//function to delete email
+function delete_email(id){
+  fetch(`/emails/delete/${id}`, {
+    method: 'DELETE',
+  })
+  setTimeout(function() {load_mailbox('inbox');}, 10);
 }
