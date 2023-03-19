@@ -83,9 +83,10 @@
                             <input onchange="select_all()" title="select all" type="checkbox" class="fw-6 h-4 text-sky-700 rounded bg-gray-100 border-gray-500" id="check-all">
                             <span class="mx-2 text-white">Select all</span>
                         </div>
-                        <div class="p-4 w-1 leading-3 text-white font-semibold items-center mx-8 flex text-lg">
+                        <div class="p-4 w-1 leading-3 text-white font-semibold items-center mx-10 flex text-lg">
                             <button  title="refresh" onclick="refresh()"><i class="fa-solid fa-rotate-right"></i></button>
-                            <button><i class="fa-solid fa-ellipsis-vertical px-4"></i></button>
+                            <button title="delete" onclick="delete_selected()" ><i class="fa-solid fa-trash px-3"></i></button>
+                            
                         </div>
                     </div>
                     <div class="overflow-y-scroll border-x border-t h-fit max-h-[750px] ">

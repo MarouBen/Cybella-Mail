@@ -256,10 +256,15 @@ function show_emails(emails, tableBody){
     timestamp.className = "p-2 text-right";
     timestamp.innerHTML = email.timestamp;
 
+    const id = document.createElement('td');
+    id.className = "hidden";
+    id.value = email.id;
+
     // append data to the row
     element.append(sender);
     element.append(subject);
     element.append(timestamp);
+    element.append(id);
 
     // append row to the table
     tableBody.append(element);
@@ -300,5 +305,16 @@ function select_all(){
   var checkboxes = document.querySelectorAll('input[type=checkbox]');
   checkboxes.forEach((checkbox) => {
     checkbox.toggleAttribute("checked");
+  });
+}
+
+//function that deletes all selected emails
+function delete_selected(){
+  var checkboxes = document.querySelectorAll('input[type=checkbox]');
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked){
+      var id = checkbox.parentElement.parentElement.lastElementChild.value;
+      delete_email(id);
+    }
   });
 }
