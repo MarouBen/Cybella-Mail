@@ -320,3 +320,18 @@ function delete_selected(){
 }
 
 //function that search for emails
+function searching(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // prevent form from submitting
+    var searchValue = document.querySelector("#search").value;
+    fetch(`/emails/search/${searchValue}`,{method: 'GET',})
+    .then(response => response.json())
+    .then(emails => {
+      // Print emails
+      console.log(emails);
+      // Show the emails
+      const tableBody = document.querySelector('#emails-view');
+      show_emails(emails, tableBody);
+    });
+  }
+}

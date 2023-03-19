@@ -18,7 +18,7 @@
                 <div class="my-3" id="searchDiv">
                     <form  class="searchForm w-[93%]">
                         <label for="search">
-                            <input class="searchInput" type="text" placeholder="Search" id="search" onkeydown="search(event)">
+                            <input class="searchInput" type="text" placeholder="Search" id="search" onkeydown="searching(event)">
                             <div class="search-bg"></div>
                             <div class="search">
                                 <svg viewBox="0 0 24 24" aria-hidden="true" class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-4wgw6l r-f727ji r-bnwqim r-1plcrui r-lrvibr">
@@ -209,6 +209,7 @@
             document.querySelector(".sidebar").classList.add('w-[60px]');
             document.querySelector(".menu").classList.remove('hidden');
         }
+        
         
     </script>
 {% endblock %}
