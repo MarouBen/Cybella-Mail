@@ -132,11 +132,17 @@ function view_email(id){
         }
       });
       //// Reply button
-      document.querySelector("#reply_btn").addEventListener('click', () => {
+      document.querySelectorAll("#reply_btn,#reply").forEach((element)=>{
+        element.addEventListener('click', () => {
         console.log("reply button clicked");
         reply_email(email.id);
+        });
       });
-
+      //// Forward button
+      document.querySelector("#forward_btn,#forward").addEventListener('click', () => {
+        console.log("forward button clicked");
+        forward_email(email.id);
+      });
   });
 }
 
@@ -175,6 +181,21 @@ function reply_email(id){
       document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
       document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote: ${email.body}
       \n ------------------------------------------------------\n`;
+  });
+}
+
+// function to forward email
+function forward_email(id){
+  compose_email();
+  fetch(`/emails/${id}`)
+  .then(response => response.json())
+  .then(email => {
+      // Print email
+      console.log(email);
+      // Show the email data
+      document.querySelector('#compose-recipients').value = "";
+      document.querySelector('#compose-subject').value = `Forwarded: ${email.subject}`;
+      document.querySelector('#compose-body').value = email.body;
   });
 }
 
