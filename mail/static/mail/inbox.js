@@ -52,9 +52,6 @@ function load_inbox(list){
   fetch('/emails/inbox')
   .then(response => response.json())
   .then(emails => {
-      // Print emails
-      console.log(emails);
-      
       // Show the emails
       show_emails(emails, list);
       });
@@ -65,9 +62,6 @@ function load_archive(list){
   fetch('/emails/archive')
   .then(response => response.json())
   .then(emails => {
-      // Print emails
-      console.log(emails);
-
       // show the emails
       show_emails(emails, list)
       });
@@ -78,9 +72,6 @@ function load_sent(list){
   fetch('/emails/sent')
   .then(response => response.json())
   .then(emails => {
-      // Print emails
-      console.log(emails);
-
       // show the emails
       show_emails(emails, list)
       });
@@ -96,8 +87,6 @@ function view_email(id){
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
-      // Print email
-      console.log(email);
       // Show the email data
       document.querySelector('#email-subject').innerHTML = email.subject;
       document.querySelector('#email-sender').innerHTML = email.sender;
@@ -119,7 +108,6 @@ function view_email(id){
       // add event listener to buttons
       //// Archive Icon
       document.querySelector("#archive_Icon").addEventListener('click', () => {
-        console.log("archive button clicked");
         if (email.archived === false){
           archive_email(email.id, "archive");
         }
@@ -130,20 +118,17 @@ function view_email(id){
       //// Reply button
       document.querySelectorAll("#reply_btn,#reply").forEach((element)=>{
         element.addEventListener('click', () => {
-        console.log("reply button clicked");
         reply_email(email.id);
         });
       });
       //// Forward button
       document.querySelectorAll("#forward_btn,#forward").forEach((element)=>{
         element.addEventListener('click', () => {
-        console.log("forward button clicked");
         forward_email(email.id);
         });
       });
       //// Delete button
       document.querySelector("#delete").addEventListener('click', () => {
-        console.log("delete button clicked");
         delete_email(email.id);
       });
   });
@@ -177,8 +162,6 @@ function reply_email(id){
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
-      // Print email
-      console.log(email);
       // Show the email data
       document.querySelector('#compose-recipients').value = email.sender;
       document.querySelector('#compose-subject').value = `Re: ${email.subject}`;
@@ -193,8 +176,6 @@ function forward_email(id){
   fetch(`/emails/${id}`)
   .then(response => response.json())
   .then(email => {
-      // Print email
-      console.log(email);
       // Show the email data
       document.querySelector('#compose-recipients').value = "";
       document.querySelector('#compose-subject').value = `Forwarded: ${email.subject}`;
@@ -216,7 +197,7 @@ function send_mail(){
   .then(response => response.json())
   .then(result => {
       // Print result
-      console.log(result);
+      alert(result.message);
   });
   setTimeout(function() {load_mailbox('sent');}, 10);
 }
