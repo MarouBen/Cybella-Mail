@@ -30,8 +30,15 @@
             <div class="formBox"> 
                 <!-- Sign In -->
                 <div class="form signInForm">
-                    <form class="sliding_form" action="{% url 'login' %}" method="post" >
+                    <form class="sliding_form L_form" onsubmit="login()" action="{% url 'login' %}" method="post" >
                         {% csrf_token %}
+                        <!-- alert div-->
+                        
+                            <div id="L_login" class="bg-red-400 rounded-lg p-2 m-5 absolute hidden top-1 lg:top-5 w-3/4 " role="alert">
+                                <strong class="text-white">Invalid Credentials!</strong> Please enter correct email and password.
+                            </div>
+                        
+                        <!-- alert div-->
                         <h1 class="font-semibold text-4xl mb-5">Login here</h1>
                         <div class="textInputWrapper">
                             <input class="LR_input"  type="email" name="email" placeholder="Email">
@@ -48,12 +55,7 @@
                             <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
                         </div>
                         <!-- Optionnal -->
-                        <!-- alert div-->
-                        {% if message %}
-                            <div class="bg-red-400 rounded-lg p-2" role="alert">
-                                <strong class="text-white">Invalid Credentials!</strong> Please enter correct email and password.
-                            </div>
-                        {% endif %}
+                        
                     </form>
                 </div>
                 <!-- Sign In -->
@@ -61,6 +63,11 @@
                 <div class="form registerForm">
                     <form action="{% url 'register' %}" method="post">
                         {% csrf_token %}
+                        {% if message2 %}
+                            <div class="bg-red-400 rounded-lg p-3 transition-all hidden" role="alert">
+                                <strong class="text-white">Failed to register!</strong> {{message2}}
+                            </div>
+                        {% endif %} 
                         <h1 class="title1 font-semibold text-4xl">Register here</h1>
                         <div class="textInputWrapper"><input class="LR_input" type="text" placeholder="Username"></div>
                         <div class="textInputWrapper"><input class="LR_input" type="email" placeholder="Email" name="email"></div>
@@ -82,11 +89,7 @@
             <!-- Forms -->
         </div>
         <!-- Container -->
-        {% if message2 %}
-            <div class="bg-red-400 rounded-lg p-4" role="alert">
-                <strong class="text-white">Failed to register!</strong> {{message2}}
-            </div>
-        {% endif %} 
+        
     </div>
     
     <script>
@@ -100,5 +103,25 @@
         signInButton.onclick = () => {
             formBox.classList.remove("active");
         }
+        function login(){
+            console.log("hi")
+            event.preventDefault();
+            const alertDiv = document.querySelector('#L_alert');
+            console.log(alertDiv)
+            const form = document.querySelector('.L_form');
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action);
+            
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // Registration successful, redirect to the success page
+                    window.location.href = '{% url 'index' %}';
+                } else {
+                    // Registration failed, show the alert div
+                    alertDiv.style.display = 'block';
+                }
+            };
+            }
+
     </script>
 {% endblock %}
