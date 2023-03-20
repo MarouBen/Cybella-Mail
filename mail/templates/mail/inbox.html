@@ -193,30 +193,4 @@
 
 {% block script %}
     <script src="{% static 'mail/inbox.js' %}"></script>
-    <script type="text/javascript">
-        function showSidebar() {
-            document.querySelectorAll(".menu-element").forEach(element => {
-                element.classList.toggle('hidden');
-            });
-            document.querySelector("#logo").classList.toggle('hidden');
-            document.querySelector(".sidebar").classList.remove('w-[60px]');
-            document.querySelector(".sidebar").classList.add('w-[300px]');
-            document.querySelector(".menu").classList.add('hidden');
-            document.querySelector("#currentUser").classList.remove('hidden'); 
-            document.querySelector("#currentUser").classList.add('inline');       
-        }
-        function hideSidebar() {
-            document.querySelectorAll(".menu-element").forEach(element => {
-                element.classList.toggle('hidden');
-            });
-            document.querySelector("#logo").classList.toggle('hidden');
-            document.querySelector(".sidebar").classList.remove('w-[300px]');
-            document.querySelector(".sidebar").classList.add('w-[60px]');
-            document.querySelector(".menu").classList.remove('hidden');
-            document.querySelector("#currentUser").classList.add('hidden'); 
-            document.querySelector("#currentUser").classList.remove('inline py-2'); 
-        }
-        
-        
-    </script>
 {% endblock %}

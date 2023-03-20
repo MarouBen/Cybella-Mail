@@ -99,7 +99,6 @@
 }
 .formBox .signInForm{
     transition-delay: 0.25s;
-    padding-bottom: 0!important;
 }
 .formBox .registerForm{
     left: 100%;

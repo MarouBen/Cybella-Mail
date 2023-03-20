@@ -28,59 +28,40 @@
             <!-- Overlay -->
             <!-- Forms -->
             <div class="formBox"> 
+                
                 <!-- Sign In -->
                 <div class="form signInForm">
+                    <!-- alert div-->
+                    <div id="L_alert" class="bg-red-400 rounded-lg p-2 m-5 absolute top-1 lg:top-5 w-3/4 hidden transition-all" role="alert">
+                        <strong class="text-white">Invalid Credentials! </strong><span id="alertText" class="text-gray-800 font-semibold text-sm"></span>
+                    </div>
+                    <!-- alert div-->
                     <form class="sliding_form L_form" onsubmit="login()" action="{% url 'login' %}" method="post" >
-                        {% csrf_token %}
-                        <!-- alert div-->
-                        
-                            <div id="L_login" class="bg-red-400 rounded-lg p-2 m-5 absolute hidden top-1 lg:top-5 w-3/4 " role="alert">
-                                <strong class="text-white">Invalid Credentials!</strong> Please enter correct email and password.
-                            </div>
-                        
-                        <!-- alert div-->
+                        {% csrf_token %} 
                         <h1 class="font-semibold text-4xl mb-5">Login here</h1>
                         <div class="textInputWrapper">
-                            <input class="LR_input"  type="email" name="email" placeholder="Email">
+                            <input class="LR_input"  type="email" name="email" placeholder="Email" required>
                         </div>
                         <div class="textInputWrapper">
-                            <input class="LR_input" type="password" placeholder="Password"  name="password" >
+                            <input class="LR_input" type="password" placeholder="Password"  name="password" required>
                         </div>
-                        <button class="main_btn">Login</button>
-                        <!-- <a href="#" class="forget">Forgot Password</a> -->
-                        <!-- Optionnal -->
-                        <span>or use your account:</span>
-                        <div class="social-container">
-                            <a href="#" class="social"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
-                        </div>
-                        <!-- Optionnal -->
-                        
+                        <button class="main_btn">Login</button>   
                     </form>
                 </div>
                 <!-- Sign In -->
                 <!-- Register -->
                 <div class="form registerForm">
-                    <form action="{% url 'register' %}" method="post">
+                    <div id="R_alert" class="bg-red-400 rounded-lg p-3 transition-all hidden" role="alert">
+                        <strong class="text-white">Failed to register!</strong><span id="alertText2" class="text-gray-800 font-semibold text-sm"></span>
+                    </div>
+                    <form class="sliding_form R_form transition-all" action="{% url 'register' %}" method="post" onsubmit="register()">
                         {% csrf_token %}
-                        {% if message2 %}
-                            <div class="bg-red-400 rounded-lg p-3 transition-all hidden" role="alert">
-                                <strong class="text-white">Failed to register!</strong> {{message2}}
-                            </div>
-                        {% endif %} 
                         <h1 class="title1 font-semibold text-4xl">Register here</h1>
                         <div class="textInputWrapper"><input class="LR_input" type="text" placeholder="Username"></div>
-                        <div class="textInputWrapper"><input class="LR_input" type="email" placeholder="Email" name="email"></div>
-                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Password" name="password"></div>
-                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Confirm Password"  name="confirmation"></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="email" placeholder="Email" name="email" required></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Password" name="password" required></div>
+                        <div class="textInputWrapper"><input class="LR_input" type="password" placeholder="Confirm Password"  name="confirmation" required></div>
                         <button class="main_btn">Register</button>
-                        <!-- Optionnal -->
-                        <span>or use your email for registration:</span>
-                        <div class="social-container">
-                            <a href="#" class="social"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
-                        </div>
-                        <!-- Optionnal -->  
                         
                     </form>
                 </div>
@@ -91,37 +72,5 @@
         <!-- Container -->
         
     </div>
-    
-    <script>
-        const signInButton = document.querySelector(".L_btn");
-        const registerButton = document.querySelector(".R_btn");
-        const formBox = document.querySelector(".formBox");
-
-        registerButton.onclick = () => {
-            formBox.classList.add("active");
-        }
-        signInButton.onclick = () => {
-            formBox.classList.remove("active");
-        }
-        function login(){
-            console.log("hi")
-            event.preventDefault();
-            const alertDiv = document.querySelector('#L_alert');
-            console.log(alertDiv)
-            const form = document.querySelector('.L_form');
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', form.action);
-            
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    // Registration successful, redirect to the success page
-                    window.location.href = '{% url 'index' %}';
-                } else {
-                    // Registration failed, show the alert div
-                    alertDiv.style.display = 'block';
-                }
-            };
-            }
-
-    </script>
+    <script src="{% static 'mail/login.js' %}"></script>
 {% endblock %}

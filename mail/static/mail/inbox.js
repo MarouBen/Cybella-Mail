@@ -1,3 +1,5 @@
+// This file contains the javascript code for the inbox page
+
 document.addEventListener('DOMContentLoaded', function() {
   // Use buttons to toggle between views
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
@@ -339,4 +341,30 @@ function searching(event) {
       show_emails(emails, tableBody);
     });
   }
+}
+
+// function that shows the sidebar
+function showSidebar() {
+  document.querySelectorAll(".menu-element").forEach(element => {
+      element.classList.toggle('hidden');
+  });
+  document.querySelector("#logo").classList.toggle('hidden');
+  document.querySelector(".sidebar").classList.remove('w-[60px]');
+  document.querySelector(".sidebar").classList.add('w-[300px]');
+  document.querySelector(".menu").classList.add('hidden');
+  document.querySelector("#currentUser").classList.remove('hidden'); 
+  document.querySelector("#currentUser").classList.add('inline');       
+}
+
+// function that hides the sidebar
+function hideSidebar() {
+  document.querySelectorAll(".menu-element").forEach(element => {
+      element.classList.toggle('hidden');
+  });
+  document.querySelector("#logo").classList.toggle('hidden');
+  document.querySelector(".sidebar").classList.remove('w-[300px]');
+  document.querySelector(".sidebar").classList.add('w-[60px]');
+  document.querySelector(".menu").classList.remove('hidden');
+  document.querySelector("#currentUser").classList.add('hidden'); 
+  document.querySelector("#currentUser").classList.remove('inline py-2'); 
 }
