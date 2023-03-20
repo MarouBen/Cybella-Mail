@@ -1,8 +1,8 @@
 {% extends "mail/layout.html" %}
 {% load static %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'mail/twittersearch.css' %}">
+    <link rel="stylesheet" href="{% static 'mail/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'mail/css/twittersearch.css' %}">
 {% endblock %}
 {% block body %}
     <div class="flex w-screen h-screen">
@@ -11,7 +11,7 @@
             <span class="menu inline-block text-2xl p-3 bg-slate-700 text-white lg:hidden rounded cursor-pointer" onclick="showSidebar()"><i class="fa-solid fa-bars"></i></span>
             <div id="logo" class="lg:flex flex-row justify-between hidden">
                 <div class="flex text-center my-3 pl-4">
-                    <img src="{% static 'mail/CM_logo.png' %}" alt="logo" class="w-18 h-12 mt-1">
+                    <img src="{% static 'mail/Images/CM_logo.png' %}" alt="logo" class="w-18 h-12 mt-1">
                     <h1 class="text-white font-bold text-3xl pl-0 pt-3">Cybella Mail</h1>
                 </div>
                 <span class="lg:hidden relative text-white text-xl cursor-pointer hover:text-rose-500 p-3 bottom-20 left-64" onclick="hideSidebar()"><i class="fa-solid fa-xmark"></i></span>
@@ -192,5 +192,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="{% static 'mail/js/inbox.js' %}"></script>
 {% endblock %}
