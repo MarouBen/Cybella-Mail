@@ -2,12 +2,12 @@
 This is a single-page application email client built with Django, JavaScript, HTML, and CSS. It allows users to send and receive emails, as well as archive, unarchive, and reply to emails.
 
 ## Installation and Setup
-1. Clone the repository: git clone https://github.com/username/email-client.git
-2. Create a virtual environment: python -m venv venv
-3. Activate the virtual environment: source venv/bin/activate (on Mac/Linux) or venv\Scripts\activate (on Windows)
-4. Install the dependencies: pip install -r requirements.txt
-5. Apply the migrations: python manage.py migrate
-6. Start the server: python manage.py runserver
+1. Clone the repository: `git clone https://github.com/MarouBen/Cybella-Mail.git`
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment: `source venv/bin/activate` (on Mac/Linux) or `venv\Scripts\activate` (on Windows)
+4. Install the dependencies: `pip install -r requirements.txt`
+5. Apply the migrations: `python manage.py migrate`
+6. Start the server: `python manage.py runserver`
 
 ## Usage
 1. Navigate to http://localhost:8000 in your web browser.
