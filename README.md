@@ -25,7 +25,7 @@ The application uses the following API endpoints:
 * PUT `/emails/<email_id>`: Updates the specified email's read/unread status or archived/unarchived status.
 
 ## Credits
-This project was created by [Your Name]. It uses the following open-source libraries:
+This project was created by Marouane BEN ABBOU. It uses the following open-source libraries:
 
 * Django
 * JavaScript
