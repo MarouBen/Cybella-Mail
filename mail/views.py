@@ -164,7 +164,7 @@ def login_view(request):
             login(request, user)
             return JsonResponse({'success': True, 'redirect': reverse("index")})
         else:
-            return JsonResponse({'success': False, 'message': 'Invalid email and/or password.'})
+            return JsonResponse({'Error': False, 'message': 'Invalid email and/or password.'})
     else:
         return render(request, "mail/login.html")
 
@@ -182,7 +182,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return JsonResponse({'success': False, 'message': 'Passwords must match.'})
+            return JsonResponse({'Error': False, 'message': 'Passwords must match.'})
 
         # Attempt to create new user
         try:
@@ -190,7 +190,7 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return JsonResponse({'success': False, 'message': 'Email address already taken.'})
+            return JsonResponse({'Error': False, 'message': 'Email address already taken.'})
 
         login(request, user)
         return JsonResponse({'success': True, 'redirect': reverse("index")})
