@@ -1,6 +1,6 @@
 # Cybella Mail
 #### Video Demo:  <[URL HERE](https://youtu.be/1KHg-fMhzFQ)>
-This is a single-page application email client built with Django, JavaScript, HTML, and CSS. It allows users to send and receive emails, as well as archive, unarchive, and reply to emails.
+This is a single-page application email-service website built with Django, JavaScript, HTML, and CSS. It allows users to send and receive emails, as well as archive, unarchive, and reply to emails.
 
 ## Installation and Setup
 1. Clone the repository: `git clone https://github.com/MarouBen/Cybella-Mail.git`
