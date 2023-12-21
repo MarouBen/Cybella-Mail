@@ -1,8 +1,10 @@
+__pycache__/
 # Compiled class file
 *.class
 
 # Virtual environment
 /venv
+vevn1
 
 # Log file
 *.log
